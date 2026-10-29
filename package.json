@@ -1,0 +1,19 @@
+{
+  "name": "email-automation",
+  "version": "1.0.0",
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "nodemailer": "^6.9.16",
+    "pdf-lib": "^1.17.1",
+    "playwright": "^1.43.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.2.0"
+  },
+  "scripts": {
+    "dev": "node ./scripts/scraper.js",
+    "email": "node ./email-sender/email-sender.js"
+  }
+}
