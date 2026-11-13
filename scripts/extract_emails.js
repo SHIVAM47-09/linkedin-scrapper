@@ -104,7 +104,8 @@ try {
           name,
           company,
           content: safeContent,
-          status: "new"
+          status: "new",
+          dateAdded: new Date().toISOString()
         });
         existingEmails.add(email);
       });
@@ -118,13 +119,21 @@ try {
       name: e.name,
       company: e.company,
       content: e.content,
-      status: e.status
+      status: e.status,
+      "date added": e.dateAdded
     }))
   ];
 
-  const header = ["email", "name", "company", "content", "status"];
-  const csvRows = mergedRows.map(row => header.map(h => csvEscape(row[h] ?? "")).join(",")).join("\n");
-  const csvContent = header.join(",") + "\n" + csvRows + "\n";
+  const columns = [
+    ["email", "email"],
+    ["name", "name"],
+    ["company", "company"],
+    ["content", "content"],
+    ["status", "status"],
+    ["Date Added", "date added"]
+  ];
+  const csvRows = mergedRows.map(row => columns.map(([, key]) => csvEscape(row[key] ?? "")).join(",")).join("\n");
+  const csvContent = columns.map(([header]) => header).join(",") + "\n" + csvRows + "\n";
 
   fs.mkdirSync(path.dirname(OUTPUT_CSV), { recursive: true });
   fs.writeFileSync(OUTPUT_CSV, csvContent, "utf-8");

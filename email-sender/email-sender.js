@@ -102,12 +102,12 @@ function parseCSV(filePath) {
 }
 
 function writeCSV(rows) {
-  const header = ['email', 'name', 'company', 'content', 'status'];
+  const header = ['email', 'name', 'company', 'content', 'status', 'date added'];
   const csvRows = rows.map(row => {
     return header.map(field => `"${String(row[field] || '').replace(/"/g, '""')}"`).join(',');
   });
 
-  const content = [header.join(','), ...csvRows].join('\n') + '\n';
+  const content = [['email', 'name', 'company', 'content', 'status', 'Date Added'].join(','), ...csvRows].join('\n') + '\n';
   fs.writeFileSync(CSV_FILE, content, 'utf-8');
 }
 
